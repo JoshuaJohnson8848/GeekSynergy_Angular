@@ -1,0 +1,80 @@
+<div class="container">
+    <div class="pt-3 pb-3 pointer">
+        <app-topbar></app-topbar>
+    </div>
+  <table class="table border">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Profession</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (user of users; track $index) {
+      <tr>
+        <th scope="row">{{ $index + 1 }}</th>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.phone }}</td>
+        <td>{{ user.profession }}</td>
+        <td>
+          <span
+            class="pointer material-symbols-outlined"
+            (click)="edit(user._id)"
+          >
+            edit
+          </span>
+        </td>
+        <td>
+          <span
+            class="pointer material-symbols-outlined"
+            data-toggle="modal"
+            data-target="#staticBackdrop"
+            (click)="openModal(user?._id)"
+          >
+            delete
+          </span>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Delete</h5>
+      </div>
+      <div class="modal-body">Did you want to delete the user ?</div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          id="closebtn"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+          (click)="closeModal()"
+        >
+          No
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="delete()">
+          Yes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

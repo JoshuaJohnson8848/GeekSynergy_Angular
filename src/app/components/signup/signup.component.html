@@ -1,0 +1,112 @@
+<div class="container h-full pt-5">
+    <div class="pt-3 pb-3 pointer">
+        <app-topbar></app-topbar>
+    </div>
+  <div class="row">
+    <div class="col h-full">
+      <div class="d-flex flex-column" [formGroup]="signupForm">
+        <div class="d-flex justify-content-start pb-3">
+          <h2>Signup</h2>
+        </div>
+        <div class="w-100 pb-3">
+          <label for="exampleFormControlInput1" class="form-label">Name</label>
+          <input
+            formControlName="name"
+            type="name"
+            class="form-control form-control-lg"
+            id="exampleFormControlInput1"
+            placeholder="Name"
+          />
+        </div>
+        <div class="w-100 pb-3 ps-2">
+          <label for="exampleFormControlInput1" class="form-label"
+            >Email address</label
+          >
+          <input
+            formControlName="email"
+            type="email"
+            class="form-control form-control-lg"
+            id="exampleFormControlInput1"
+            placeholder="Email"
+          />
+        </div>
+        <div class="w-100 pb-3">
+          <label for="exampleFormControlInput1" class="form-label">Phone</label>
+          <input
+            formControlName="phone"
+            type="phone"
+            class="form-control form-control-lg"
+            id="exampleFormControlInput1"
+            placeholder="Phone"
+            maxlength="10"
+          />
+        </div>
+        <div class="w-100 pb-3">
+          <label for="exampleFormControlInput1" class="form-label"
+            >Profession</label
+          >
+          <input
+            formControlName="profession"
+            type="profession"
+            class="form-control form-control-lg"
+            id="exampleFormControlInput1"
+            placeholder="Profession"
+          />
+        </div>
+        @if(!isEdit){<div class="w-100 pb-3">
+          <label for="exampleFormControlInput1" class="form-label"
+            >Password</label
+          >
+          <input
+            formControlName="password"
+            type="password"
+            class="form-control form-control-lg"
+            id="exampleFormControlInput1"
+            placeholder="Password"
+          />
+        </div>}
+        <div class="d-flex justify-content-between">
+          @if(!isEdit){
+          <p>Already have an account ? <a href="/">login</a></p>
+          }
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+            {{ isEdit ? "Update" : "Signup" }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">{{isEdit ? 'Update': 'Signup'}}</h5>
+      </div>
+      <div class="modal-body">{{isEdit ? 'Did you want to update the user ?' : 'Confirm to Proceed!'}} </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          id="closebtn"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+        >
+          No
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="!isEdit ? signup() : update()">
+          Yes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
