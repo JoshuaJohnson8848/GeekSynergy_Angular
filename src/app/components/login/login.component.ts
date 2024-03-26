@@ -33,9 +33,11 @@ export class LoginComponent {
       if(res){
         let token = res?.token;
         let userId = res?.userId;
+        let name = res?.name;
 
         localStorage.setItem('token',token);
         localStorage.setItem('userId',userId);
+        localStorage.setItem('name',name);
 
         this._toastr.success('Successfully', 'Logged In');
         
