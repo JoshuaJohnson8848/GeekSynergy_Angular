@@ -9,11 +9,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { TopbarComponent } from '../topbar/topbar.component';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, TopbarComponent],
+  imports: [ReactiveFormsModule, FormsModule, TopbarComponent, ToastrModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
 })
@@ -26,7 +27,8 @@ export class SignupComponent implements OnInit {
     private _route: ActivatedRoute,
     private _userService: UserService,
     private _formBuilder: FormBuilder,
-    private _router: Router
+    private _router: Router,
+    private _toastr: ToastrService
   ) {
     this.signupForm = this._formBuilder.group({
       name: ['', Validators.required],
@@ -72,8 +74,13 @@ export class SignupComponent implements OnInit {
     this._userService.signup(payload).subscribe((res: any)=>{
       if(res){
         this._router.navigate(['/'])
+        this._toastr.success('Successfully', 'Signed up');
       }
-    })
+    },
+    (error)=>{
+      this._toastr.error('Error', error?.error?.message);
+    }
+    )
   }
 
   update(){
@@ -86,7 +93,12 @@ export class SignupComponent implements OnInit {
     this._userService.updateUser(payload,this.userId).subscribe((res: any)=>{
       if(res){
         this._router.navigate(['/dashboard'])
+        this._toastr.success('Successfully', 'Updated');
       }
-    })
+    },
+    (error)=>{
+      this._toastr.error('Error', error?.error?.message);
+    }
+    )
   }
 }

@@ -37,10 +37,15 @@ export class LoginComponent {
         localStorage.setItem('token',token);
         localStorage.setItem('userId',userId);
 
+        this._toastr.success('Successfully', 'Reset Password');
+        
         this._router.navigate(['/dashboard']);
-        alert("Logged In Successfully")
-        // this._toastr.success('Logged In', 'Successfully');
       }
-    })
+    },
+    (error)=>{
+      console.error('Error:', error);
+      this._toastr.error('Error', error?.error?.message);
+    }
+    )
   }
 }
